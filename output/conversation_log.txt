@@ -1,3 +1,24 @@
 You: hi
 LLaMA: Hi! It's nice to meet you. Is there something I can help you with, or would you like to chat?
 
+You: hi
+LLaMA: Hi! It's nice to meet you. Is there something I can help you with or would you like to chat?
+
+You: exit
+LLaMA: I'm happy to start a conversation! Since we just met, let's get to know each other a bit better. What do you enjoy doing in your free time? Do you have any hobbies or interests that bring you joy?
+
+You: hello
+LLaMA: Hello! It's nice to meet you. Is there something I can help you with, or would you like to chat?
+
+You: hi
+LLaMA: Hi! It's nice to meet you. Is there something I can help you with or would you like to chat?
+
+You: hi
+LLaMA: Hi! It's nice to meet you. Is there something I can help you with or would you like to chat?
+
+You: hi
+LLaMA: Hi! It's nice to meet you. Is there something I can help you with, or would you like to chat?
+
+You: hi
+LLaMA: Hi! It's nice to meet you. Is there something I can help you with or would you like to chat?
+

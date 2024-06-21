@@ -1,8 +1,16 @@
 import json
 from elasticsearch import Elasticsearch
 
+import urllib3
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+
 def index_documents():
-    es = Elasticsearch([{'host': 'localhost', 'port': 9200}])
+    es = Elasticsearch(
+        [{'host': 'localhost', 'port': 9200, 'scheme': 'https'}],
+        basic_auth=('elastic', 'ZhqgnHPRo+3qQW6qj3A2'),
+        verify_certs=False
+    )
 
     # Load documents from the JSON file
     with open('data/documents.json', 'r') as file:

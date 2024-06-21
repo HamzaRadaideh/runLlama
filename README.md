@@ -34,3 +34,10 @@
 - Type `exit llama` to end the conversation.
 
 ## Project Structure
+
+<!-- cd C:\elasticsearch-8.14.1\bin
+.\elasticsearch.bat
+
+python index_documents.py
+
+python run_llama.py -->

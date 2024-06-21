@@ -2,24 +2,35 @@ import subprocess
 from elasticsearch import Elasticsearch
 import os
 
-# def search_documents(query):
-#     es = Elasticsearch([{'host': 'localhost', 'port': 9200, 'scheme': 'http'}])
-#     response = es.search(
-#         index="your_index",
-#         body={
-#             "query": {
-#                 "match": {
-#                     "content": query
-#                 }
-#             }
-#         }
-#     )
-#     return [hit["_source"]["content"] for hit in response["hits"]["hits"]]
+import urllib3
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-def run_llama3(history, prompt): #, context_documents
+def search_documents(query):
     try:
-        # context = "\n".join(context_documents)
-        full_prompt = "\n".join(history + [prompt]) #+ [context]
+        es = Elasticsearch(
+            [{'host': 'localhost', 'port': 9200, 'scheme': 'https'}],
+            basic_auth=('elastic', 'ZhqgnHPRo+3qQW6qj3A2'),
+            verify_certs=False
+        )
+        response = es.search(
+            index="your_index",
+            body={
+                "query": {
+                    "match": {
+                        "content": query
+                    }
+                }
+            }
+        )
+        return [hit["_source"]["content"] for hit in response["hits"]["hits"]]
+    except Exception as e:
+        print(f"An error occurred while searching documents: {e}")
+        return []
+
+def run_llama3(history, prompt, context_documents):
+    try:
+        context = "\n".join(context_documents)
+        full_prompt = "\n".join(history + [prompt] + [context])
         
         result = subprocess.run(
             ['ollama', 'run', 'llama3'],
@@ -57,8 +68,8 @@ if __name__ == "__main__":
         if prompt.lower() == "exit llama":
             print("Exiting the conversation.")
             break
-        # context_documents = search_documents(prompt)
-        response = run_llama3(conversation_history, prompt) # response = run_llama3(conversation_history, prompt, context_documents)
+        context_documents = search_documents(prompt)
+        response = run_llama3(conversation_history, prompt, context_documents)
         conversation_history.append(f"You: {prompt}")
         conversation_history.append(f"LLaMA: {response}")
         log_conversation(prompt, response)
